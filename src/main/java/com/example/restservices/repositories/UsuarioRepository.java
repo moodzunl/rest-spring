@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
 
+    public abstract UsuarioModel findByEmail(String email);
+
+    public abstract UsuarioModel findByNombre(String nombre);
 }
