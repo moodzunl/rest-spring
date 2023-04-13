@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Clientes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h1>Buscador de Clientes</h1>
+    <h2>Buscar por ID</h2>
+    <div class="form-group">
+        <label for="clienteId">ID de Cliente:</label>
+        <input type="number" class="form-control" id="clienteId">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="buscarClientePorId()">Buscar</button>
+    <div id="resultadoClientePorId"></div>
+
+    <h2 class="mt-5">Buscar por Email</h2>
+    <div class="form-group">
+        <label for="clienteEmail">Email de Cliente:</label>
+        <input type="email" class="form-control" id="clienteEmail">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="buscarClientePorEmail()">Buscar</button>
+    <div id="resultadoClientePorEmail"></div>
+
+    <h2 class="mt-5">Buscar por Nombre</h2>
+    <div class="form-group">
+        <label for="clienteNombre">Nombre de Cliente:</label>
+        <input type="text" class="form-control" id="clienteNombre">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="buscarClientePorNombre()">Buscar</button>
+    <div id="resultadoClientePorNombre"></div>
+
+</div>
+
+<script>
+    function buscarClientePorId() {
+        var clienteId = document.getElementById('clienteId').value;
+        if (clienteId) {
+            // Realizar petición GET al servidor por ID
+            fetch('http://localhost:8080/clientes/' + clienteId)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Cliente no encontrado');
+                    }
+                })
+                .then(function (data) {
+                    // Mostrar los datos del cliente en el resultado
+                    var resultadoClientePorId = document.getElementById('resultadoClientePorId');
+                    resultadoClientePorId.innerHTML = '';
+                    resultadoClientePorId.innerHTML += '<p>ID: ' + data.id + '</p>';
+                    resultadoClientePorId.innerHTML += '<p>Nombre: ' + data.nombre + '</p>';
+                    resultadoClientePorId.innerHTML += '<p>Email: ' + data.email + '</p>';
+                })
+                .catch(function (error) {
+                    // Mostrar alerta de Bootstrap si el cliente no se encuentra
+                    var resultadoClientePorId = document.getElementById('resultadoClientePorId');
+                    resultadoClientePorId.innerHTML = '';
+                    resultadoClientePorId.innerHTML += '<div class="alert alert-danger">Cliente no encontrado</div>';
+                });
+        } else {
+            // Mostrar alerta de Bootstrap si no se ingresa un ID de cliente
+            var resultadoClientePorId = document.getElementById('resultadoClientePorId');
+            resultadoClientePorId.innerHTML = '';
+            resultadoClientePorId.innerHTML += '<div class="alert alert-danger">Por favor ingrese un ID de cliente</div>';
+        }
+    }
+
+    function buscarClientePorEmail() {
+        var clienteEmail = document.getElementById('clienteEmail').value;
+        if (clienteEmail) {
+            //Realizar petición GET al servidor por email
+            fetch('http://localhost:8080/clientes/?email=' + clienteEmail)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Cliente no encontrado');
+                    }
+                })
+                .then(function (data) {
+// Mostrar los datos del cliente en el resultado
+                    var resultadoClientePorEmail = document.getElementById('resultadoClientePorEmail');
+                    resultadoClientePorEmail.innerHTML = '';
+                    resultadoClientePorEmail.innerHTML += '<p>ID: ' + data.id + '</p>';
+                    resultadoClientePorEmail.innerHTML += '<p>Nombre: ' + data.nombre + '</p>';
+                    resultadoClientePorEmail.innerHTML += '<p>Email: ' + data.email + '</p>';
+                })
+                .catch(function (error) {
+// Mostrar alerta de Bootstrap si el cliente no se encuentra
+                    var resultadoClientePorEmail = document.getElementById('resultadoClientePorEmail');
+                    resultadoClientePorEmail.innerHTML = '';
+                    resultadoClientePorEmail.innerHTML += '<div class="alert alert-danger">Cliente no encontrado</div>';
+                });
+        } else {
+// Mostrar alerta de Bootstrap si no se ingresa un email de cliente
+            var resultadoClientePorEmail = document.getElementById('resultadoClientePorEmail');
+            resultadoClientePorEmail.innerHTML = '';
+            resultadoClientePorEmail.innerHTML += '<div class="alert alert-danger">Por favor ingrese un email de cliente</div>';
+        }
+    }
+
+    function buscarClientePorNombre() {
+        var clienteNombre = document.getElementById('clienteNombre').value;
+        if (clienteNombre) {
+            // Realizar petición GET al servidor por nombre
+            fetch('http://localhost:8080/clientes/?nombre=' + clienteNombre)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Cliente no encontrado');
+                    }
+                })
+                .then(function (data) {
+                    // Mostrar los datos del cliente en el resultado
+                    var resultadoClientePorNombre = document.getElementById('resultadoClientePorNombre');
+                    resultadoClientePorNombre.innerHTML = '';
+                    resultadoClientePorNombre.innerHTML += '<p>ID: ' + data.id + '</p>';
+                    resultadoClientePorNombre.innerHTML += '<p>Nombre: ' + data.nombre + '</p>';
+                    resultadoClientePorNombre.innerHTML += '<p>Email: ' + data.email + '</p>';
+                })
+                .catch(function (error) {
+                    // Mostrar alerta de Bootstrap si el cliente no se encuentra
+                    var resultadoClientePorNombre = document.getElementById('resultadoClientePorNombre');
+                    resultadoClientePorNombre.innerHTML = '';
+                    resultadoClientePorNombre.innerHTML += '<div class="alert alert-danger">Cliente no encontrado</div>';
+                });
+        } else {
+            // Mostrar alerta de Bootstrap si no se ingresa un nombre de cliente
+            var resultadoClientePorNombre = document.getElementById('resultadoClientePorNombre');
+            resultadoClientePorNombre.innerHTML = '';
+            resultadoClientePorNombre.innerHTML += '<div class="alert alert-danger">Por favor ingrese un nombre de cliente</div>';
+        }
+    }
+</script>
+</body>
+</html>

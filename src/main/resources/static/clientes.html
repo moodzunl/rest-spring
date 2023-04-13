@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de usuarios registrados</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 style="text-align: center">Tabla de Clientes</h1>
+<table id="clientesTable" class="table table-primary table-striped">
+    <thead>
+    <th scope="col">Id</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Apellido</th>
+    <th scope="col">Email</th>
+    <th scope="col">Terminado</th>
+    <th scope="col">Precio</th>
+    </thead>
+    <tbody id="clientesTableBody">
+    </tbody>
+</table>
+<script>
+    let url = "http://localhost:8080/clientes";
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            var tableBody = document.getElementById("clientesTableBody");
+            data.forEach(
+                function (client) {
+                    let row = document.createElement("tr");
+                    let idCell = document.createElement("td");
+                    let nombreCell = document.createElement("td");
+                    let apellidoCell = document.createElement("td");
+                    let emailCell = document.createElement("td");
+                    let terminadoCell = document.createElement("td");
+                    let precioCell = document.createElement("td");
+
+                    idCell.innerHTML = client.id;
+                    nombreCell.innerHTML = client.nombre;
+                    apellidoCell.innerHTML = client.apellido;
+                    emailCell.innerHTML = client.email;
+                    terminadoCell.innerHTML = client.terminado;
+                    precioCell.innerHTML = client.precio;
+
+                    row.appendChild(idCell);
+                    row.appendChild(nombreCell);
+                    row.appendChild(apellidoCell);
+                    row.appendChild(emailCell);
+                    row.appendChild(terminadoCell);
+                    row.appendChild(precioCell);
+
+                    tableBody.appendChild(row);
+                }
+            )
+        })
+        .catch(error => {
+            console.error("Tuvimos este error: ", error)
+        })
+</script>
+</body>
+</html>

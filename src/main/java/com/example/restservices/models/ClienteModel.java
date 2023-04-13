@@ -3,15 +3,17 @@ package com.example.restservices.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usuarios")
-public class UsuarioModel {
+@Table(name = "clientes")
+public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     private String nombre;
+    private String apellido;
     private String email;
-    private Integer prioridad;
+    private Boolean terminado;
+    private Double precio;
 
     public Long getId() {
         return id;
@@ -29,6 +31,14 @@ public class UsuarioModel {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -37,11 +47,19 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public Integer getPrioridad() {
-        return prioridad;
+    public boolean isTerminado() {
+        return terminado;
     }
 
-    public void setPrioridad(Integer prioridad) {
-        this.prioridad = prioridad;
+    public void setTerminado(boolean terminado) {
+        this.terminado = terminado;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 }
